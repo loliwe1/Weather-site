@@ -1,0 +1,108 @@
+/* Сброс стилей */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* ----------------------------------------------------------------------------------- */
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(34,116,195,1) 100%);
+    color: white;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 150px;
+}
+
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.city {
+    margin: 20px;
+    font-size: 85px;   
+    display: inline-block; 
+
+}
+
+.weather{
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.temperature {
+  font-size: 70px;
+  padding-bottom: 20px;
+}
+
+.temperature::after {
+  font-family: 'icomoon' !important;
+  content: "\e905";
+  font-weight: 400;
+}
+
+.wearher_discription {
+  font-size: 35px;
+  font-weight: 400;
+}
