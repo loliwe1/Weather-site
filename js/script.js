@@ -1,6 +1,27 @@
 'use strict'
-
+// t_{C}=t_{K}-273,15
 window.addEventListener('load', function(){
+
+const temperature = document.querySelector('.temperature');
+
+async function getTemperature() {
+    let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Omsk,ru&appid=6d69f33007962728c2d73296d6bbdd69');
+    let result = await response.json();
+    console.log(result);
+
+    let  {temp} = result.main;
+    const celsius = Math.floor(temp - 273.15);
+
+    temperature.innerHTML = celsius;
+};
+
+getTemperature();
+
+
+
+
+
+    //Skycons---------------------------------------------------------
     var skycons = new Skycons({"color": "white"});
     // on Android, a nasty hack is needed: {"resizeClear": true}
   
