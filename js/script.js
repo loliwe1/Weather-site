@@ -4,12 +4,20 @@ window.addEventListener('DOMContentLoaded', function () {
 
     const temperature = document.querySelector('.temperature');
     const descriptionWeather = document.querySelector('.wearher_discription');
-    const city = document.querySelector('.city')
+    const city = document.querySelector('.city');
+    const cities = document.querySelector('#cities');
 
+    let cityId = 1496153;
     getTemperature();
 
+    cities.addEventListener('click', event => {
+        cityId = cities.value;
+        getTemperature();
+    });
+
     async function getTemperature() {
-        let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Omsk,ru&appid=6d69f33007962728c2d73296d6bbdd69');
+        
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         let result = await response.json();
 
         let { temp } = result.main;
@@ -22,9 +30,6 @@ window.addEventListener('DOMContentLoaded', function () {
         temperature.innerHTML = celsius;
         descriptionWeather.innerHTML = description;
         city.innerHTML = result.name;
-
-        
-       
     };
 
 
@@ -62,4 +67,17 @@ window.addEventListener('DOMContentLoaded', function () {
         skycons.play();
     }
 
+    async function getCity(){
+        let response = await fetch('../json/city.list.json');
+        let data = await response.json();
+
+        for(let key in data){
+            if(data[key].country === 'RU'){
+                let option =  new Option( data[key].name, data[key].id);
+                cities.append(option);
+            }
+        }
+    };
+
+    getCity();
 });
