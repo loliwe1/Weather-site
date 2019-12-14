@@ -1,8 +1,9 @@
 'use strict'
-// t_{C}=t_{K}-273,15
-window.addEventListener('load', function(){
+
+window.addEventListener('DOMContentLoaded', function(){
 
 const temperature = document.querySelector('.temperature');
+const descriptionWeather = document.querySelector('.wearher_discription');
 
 async function getTemperature() {
     let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Omsk,ru&appid=6d69f33007962728c2d73296d6bbdd69');
@@ -10,9 +11,11 @@ async function getTemperature() {
     console.log(result);
 
     let  {temp} = result.main;
+    let  {description} = result.weather[0];
     const celsius = Math.floor(temp - 273.15);
 
     temperature.innerHTML = celsius;
+    descriptionWeather.innerHTML = description;
 };
 
 getTemperature();
