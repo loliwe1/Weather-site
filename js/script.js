@@ -1,42 +1,65 @@
 'use strict'
 
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', function () {
 
-const temperature = document.querySelector('.temperature');
-const descriptionWeather = document.querySelector('.wearher_discription');
+    const temperature = document.querySelector('.temperature');
+    const descriptionWeather = document.querySelector('.wearher_discription');
+    const city = document.querySelector('.city')
 
-async function getTemperature() {
-    let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Omsk,ru&appid=6d69f33007962728c2d73296d6bbdd69');
-    let result = await response.json();
-    console.log(result);
+    getTemperature();
 
-    let  {temp} = result.main;
-    let  {description} = result.weather[0];
-    const celsius = Math.floor(temp - 273.15);
+    async function getTemperature() {
+        let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Omsk,ru&appid=6d69f33007962728c2d73296d6bbdd69');
+        let result = await response.json();
 
-    temperature.innerHTML = celsius;
-    descriptionWeather.innerHTML = description;
-};
+        let { temp } = result.main;
+        let weather = result.weather[0];
+        let {description, main } = weather;
+        const celsius = Math.floor(temp - 273.15);
 
-getTemperature();
+        skycons(main);
+
+        temperature.innerHTML = celsius;
+        descriptionWeather.innerHTML = description;
+        city.innerHTML = result.name;
+
+        
+       
+    };
 
 
+    function skycons(fallout) {
+        var skycons = new Skycons({
+            "color": "white"
+        });
+        if (fallout === 'Clear') {
+            skycons.add("icon1", Skycons.CLEAR_DAY);
+        }
+        if (fallout === 'Clouds') {
+            skycons.add("icon1", Skycons.CLOUDY);
 
+        }
+        if (fallout === 'Rain') {
+            skycons.add("icon1", Skycons.RAIN);
+        }
+        if (fallout === 'Thunderstorm') {
+            skycons.add("icon1", Skycons.SLEET);
+        }
+        if (fallout === 'Snow') {
+            skycons.add("icon1", Skycons.SNOW);
+        }
+        if (fallout === 'Wind') {
+            skycons.add("icon1", Skycons.WIND);
+        }
+        if (fallout === 'Fog') {
+            skycons.add("icon1", Skycons.FOG);
+        }
 
+        else {
+            skycons.add("icon1", Skycons.CLEAR_DAY);
+        }
 
-    //Skycons---------------------------------------------------------
-    var skycons = new Skycons({"color": "white"});
-    // on Android, a nasty hack is needed: {"resizeClear": true}
-  
-    // you can add a canvas by it's ID...
-    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-  
-    // ...or by the canvas DOM element itself.
-    skycons.add(document.getElementById("icon2"), Skycons.RAIN);
-  
-    // if you're using the Forecast API, you can also supply
-    // strings: "partly-cloudy-day" or "rain".
-  
-    // start animation!
-    skycons.play();
+        skycons.play();
+    }
+
 });
