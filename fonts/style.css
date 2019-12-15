@@ -56,7 +56,7 @@ select {
   font: inherit;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
@@ -66,29 +66,29 @@ a{
 /* ----------------------------------------------------------------------------------- */
 
 body {
-    font-family: 'Oswald', sans-serif;
-    background: rgb(34,193,195);
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(34,116,195,1) 100%);
-    color: white;
-    height: 100%;
+  font-family: 'Oswald', sans-serif;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(34, 116, 195, 1) 100%);
+  color: white;
+  height: 100%;
 }
 
-.choose_city{
+.choose_city {
   text-align: right;
   padding-top: 70px;
   margin-right: 100px;
   height: 150px;
 }
 
-.display_none{
+.display_none {
   display: none;
 }
 
 .details {
   margin: 5px;
-} 
+}
 
-.details a{
+.details a {
   font-family: 'Oswald', sans-serif;
   color: white;
 
@@ -106,14 +106,14 @@ body {
 }
 
 .container {
-    width: 800px;
-    margin: 0 auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    position: relative;
-    padding-top: 30px;
-    padding-bottom: 50px;
-    height: 100%;
+  width: 800px;
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  height: 100%;
 }
 
 .about {
@@ -123,12 +123,12 @@ body {
 }
 
 .city {
-    font-size: 85px;   
-    display: inline-block; 
+  font-size: 85px;
+  display: inline-block;
 
 }
 
-.weather{
+.weather {
   margin: 0 auto;
   text-align: center;
   padding-top: 120px;
@@ -150,8 +150,6 @@ body {
 }
 
 .details_items {
-  position: absolute;
-  top: 120px;
   margin-top: 50px;
 }
 
@@ -172,11 +170,31 @@ body {
   .container {
     width: 100%;
     padding-top: 50px;
-}
-.details_items {
-  position: static;
-  top: 120px;
-  margin-top: 50px;
+  }
+
 }
 
+@media (max-width: 576px) {
+  .choose_city {
+    text-align: center;
+    padding-top: 30px;
+    margin: 0;
+  }
+
+  .container {
+    padding-top: 0;
+  }
+
+  #cities {
+    width: 80%;
+  }
+
+  .hide_a {
+    padding-left: 0;
+  }
+
+  .details_city {
+    line-height: 50px;
+    padding-bottom: 10px;
+  }
 }
