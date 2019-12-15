@@ -3,10 +3,12 @@
 window.addEventListener('DOMContentLoaded', function () {
     const temperature = document.querySelector('.temperature');
     const descriptionWeather = document.querySelector('.wearher_discription');
+    const mainWeather = document.querySelector('.weather');
     const city = document.querySelector('.city');
     const cities = document.querySelector('#cities');
     const chooseCity = document.querySelector('.cities');
     const formCity = document.querySelector('form');
+    const detailsItems = document.querySelector('.details_items')
     const detailDate = document.querySelector('.details_date');
     const detailTime = document.querySelector('.details_time');
     const detailCoords = document.querySelector('.details_coords');
@@ -15,19 +17,27 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailWindDeg = document.querySelector('.details_wind-deg');
     const detailPressure = document.querySelector('.details_main-pressure');
     const detailHumidity = document.querySelector('.details_main-humidity');
+    const detailCity = document.querySelector('.details_city');
+    const detailsMenu = document.querySelector('.details_a');
     let cityId = 1496153; // Omsk id
 
     getTemperature();
     getCity();
 
     chooseCity.addEventListener('click', () => {
-        formCity.classList.toggle('city_form');
+        formCity.classList.toggle('display_none');
     });
 
     cities.addEventListener('click', () => {
         cityId = cities.value;
         getTemperature();
     });
+
+    detailsMenu.addEventListener('click', event => {
+        mainWeather.classList.toggle('display_none');
+        detailsItems.classList.toggle('display_none');
+        console.log(event.target);
+    })
 
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
@@ -45,7 +55,7 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log(result.coord)
 
         skycons(main);
-        getDetails(new Date(), `00:00:00`, `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
+        getDetails(result.name, new Date(), `00:00:00`, `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
 
     };
 
@@ -64,15 +74,16 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    function getDetails(date = new Date(), time, coords, clouds, windSpeed, windDeg, pressure, humidity){
+    function getDetails(city, date = new Date(), time, coords, clouds, windSpeed, windDeg, pressure, humidity){
+        detailCity.querySelector('span').innerHTML = city;
         detailDate.querySelector('span').innerHTML = date ;
         detailTime.querySelector('span').innerHTML = time ;
-        detailCoords.querySelector('span').innerHTML = coords ;
-        detailClouds.querySelector('span').innerHTML = clouds ;
-        detailWindSpeed.querySelector('span').innerHTML = windSpeed ;
-        detailWindDeg.querySelector('span').innerHTML = windDeg ;
-        detailPressure.querySelector('span').innerHTML = pressure ;
-        detailHumidity.querySelector('span').innerHTML = humidity ;  
+        detailCoords.querySelector('span').innerHTML = coords + ' (широта, долгота)' ;
+        detailClouds.querySelector('span').innerHTML = clouds + ' %';
+        detailWindSpeed.querySelector('span').innerHTML = windSpeed + ' метра/сек';
+        detailWindDeg.querySelector('span').innerHTML = windDeg + ' градусов' ;
+        detailPressure.querySelector('span').innerHTML = Math.floor(pressure * 0.75006375541921) + ' мм рт.ст.' ;
+        detailHumidity.querySelector('span').innerHTML = humidity + ' %' ;  
     }
 
     function skycons(fallout) {
