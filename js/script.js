@@ -120,7 +120,7 @@ window.addEventListener('DOMContentLoaded', function () {
         if(seconds < 10) {
             seconds = '0' + date.getSeconds();
         }
-        let timer =  `${hours}:${mins}:${seconds}`;
+        let timer =  `${hours +1}:${mins}:${seconds}`;
 
         setTimeout(function(){
             detailTime.querySelector('span').innerHTML = timer;

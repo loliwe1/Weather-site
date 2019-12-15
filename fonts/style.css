@@ -112,6 +112,8 @@ body {
     padding-left: 10px;
     position: relative;
     padding-top: 30px;
+    padding-bottom: 50px;
+    height: 100%;
 }
 
 .about {
@@ -148,7 +150,6 @@ body {
 }
 
 .details_items {
-  padding-bottom: 40px;
   position: absolute;
   top: 120px;
   margin-top: 50px;
@@ -172,4 +173,10 @@ body {
     width: 100%;
     padding-top: 50px;
 }
+.details_items {
+  position: static;
+  top: 120px;
+  margin-top: 50px;
+}
+
 }
