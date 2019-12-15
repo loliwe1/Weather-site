@@ -7,6 +7,14 @@ window.addEventListener('DOMContentLoaded', function () {
     const cities = document.querySelector('#cities');
     const chooseCity = document.querySelector('.cities');
     const formCity = document.querySelector('form');
+    const detailDate = document.querySelector('.details_date');
+    const detailTime = document.querySelector('.details_time');
+    const detailCoords = document.querySelector('.details_coords');
+    const detailClouds = document.querySelector('.details_clouds');
+    const detailWindSpeed = document.querySelector('.details_wind-speed');
+    const detailWindDeg = document.querySelector('.details_wind-deg');
+    const detailPressure = document.querySelector('.details_main-pressure');
+    const detailHumidity = document.querySelector('.details_main-humidity');
     let cityId = 1496153; // Omsk id
 
     getTemperature();
@@ -24,21 +32,21 @@ window.addEventListener('DOMContentLoaded', function () {
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         let result = await response.json();
-        let {
-            temp
-        } = result.main;
+        console.log(result);
+        let { temp, humidity, pressure } = result.main;
         let weather = result.weather[0];
-        let {
-            description,
-            main
-        } = weather;
+        let { description,main } = weather;
         const celsius = Math.floor(temp - 273.15);
-
-        skycons(main);
 
         temperature.innerHTML = celsius;
         descriptionWeather.innerHTML = description;
         city.innerHTML = result.name;
+
+        console.log(result.coord)
+
+        skycons(main);
+        getDetails(new Date(), `00:00:00`, `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
+
     };
 
     async function getCity() {
@@ -56,7 +64,16 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-
+    function getDetails(date = new Date(), time, coords, clouds, windSpeed, windDeg, pressure, humidity){
+        detailDate.querySelector('span').innerHTML = date ;
+        detailTime.querySelector('span').innerHTML = time ;
+        detailCoords.querySelector('span').innerHTML = coords ;
+        detailClouds.querySelector('span').innerHTML = clouds ;
+        detailWindSpeed.querySelector('span').innerHTML = windSpeed ;
+        detailWindDeg.querySelector('span').innerHTML = windDeg ;
+        detailPressure.querySelector('span').innerHTML = pressure ;
+        detailHumidity.querySelector('span').innerHTML = humidity ;  
+    }
 
     function skycons(fallout) {
         var skycons = new Skycons({

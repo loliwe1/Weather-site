@@ -56,6 +56,10 @@ select {
   font: inherit;
 }
 
+a{
+  text-decoration: none;
+}
+
 
 /* ----------------------------------------------------------------------------------- */
 
@@ -75,6 +79,12 @@ body {
 
 .city_form{
   display: none;
+}
+
+.details a{
+  font-family: 'Oswald', sans-serif;
+  color: white;
+
 }
 
 .cities {
