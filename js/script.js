@@ -18,7 +18,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailPressure = document.querySelector('.details_main-pressure');
     const detailHumidity = document.querySelector('.details_main-humidity');
     const detailCity = document.querySelector('.details_city');
-    const detailsMenu = document.querySelector('.details_a');
+    const detailsShow = document.querySelector('.details_a');
+    const detailsHide = document.querySelector('.hide_a');
     let cityId = 1496153; // Omsk id
 
     getTemperature();
@@ -33,11 +34,13 @@ window.addEventListener('DOMContentLoaded', function () {
         getTemperature();
     });
 
-    detailsMenu.addEventListener('click', event => {
-        mainWeather.classList.toggle('display_none');
-        detailsItems.classList.toggle('display_none');
-        console.log(event.target);
-    })
+    detailsShow.addEventListener('click', () => {
+        showDetails();
+    });
+    detailsHide.addEventListener('click', () => {
+        showDetails();
+    });
+
 
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
@@ -54,8 +57,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
         console.log(result.coord)
 
+
         skycons(main);
-        getDetails(result.name, new Date(), `00:00:00`, `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
+        getDetails(result.name, getDate(), getTime(), `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
 
     };
 
@@ -77,7 +81,6 @@ window.addEventListener('DOMContentLoaded', function () {
     function getDetails(city, date = new Date(), time, coords, clouds, windSpeed, windDeg, pressure, humidity){
         detailCity.querySelector('span').innerHTML = city;
         detailDate.querySelector('span').innerHTML = date ;
-        detailTime.querySelector('span').innerHTML = time ;
         detailCoords.querySelector('span').innerHTML = coords + ' (широта, долгота)' ;
         detailClouds.querySelector('span').innerHTML = clouds + ' %';
         detailWindSpeed.querySelector('span').innerHTML = windSpeed + ' метра/сек';
@@ -85,6 +88,49 @@ window.addEventListener('DOMContentLoaded', function () {
         detailPressure.querySelector('span').innerHTML = Math.floor(pressure * 0.75006375541921) + ' мм рт.ст.' ;
         detailHumidity.querySelector('span').innerHTML = humidity + ' %' ;  
     }
+
+    function showDetails(){
+        mainWeather.classList.toggle('display_none');
+        detailsItems.classList.toggle('display_none');
+        detailsShow.classList.toggle('display_none');
+        detailsHide.classList.toggle('display_none');
+    };
+
+    function getDate() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let newDate = `${day}.${month + 1}.${year}`;
+
+        return newDate;
+    };
+
+    function getTime(){
+        let date = new Date();
+        let hours = date.getHours();
+        let mins = date.getMinutes();
+
+        if(mins < 10){
+            mins = '0' + date.getMinutes();
+        }
+
+        let seconds = date.getSeconds();
+
+        if(seconds < 10) {
+            seconds = '0' + date.getSeconds();
+        }
+        let timer =  `${hours}:${mins}:${seconds}`;
+
+        setTimeout(function(){
+            detailTime.querySelector('span').innerHTML = timer;
+        getTime()
+        }, 1000);
+    };
+    
+
+
+
 
     function skycons(fallout) {
         var skycons = new Skycons({
