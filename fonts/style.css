@@ -66,10 +66,28 @@ body {
     color: white;
 }
 
+.choose_city{
+  text-align: right;
+  padding-top: 70px;
+  margin-right: 100px;
+  height: 150px;
+}
+
+.city_form{
+  display: none;
+}
+
+.cities {
+  cursor: pointer;
+  font-size: 20px;
+  display: inline-block;
+  padding: 5px;
+}
+
 .container {
     width: 800px;
     margin: 0 auto;
-    padding-top: 150px;
+    padding-top: 50px;
     padding-right: 10px;
     padding-left: 10px;
 }
