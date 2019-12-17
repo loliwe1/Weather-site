@@ -22,8 +22,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailsHide = document.querySelector('.hide_a');
     let cityId = 1496153; // Omsk id
 
-    getTemperature();
     getCity();
+    getTemperature();
 
     chooseCity.addEventListener('click', () => {
         formCity.classList.toggle('display_none');
@@ -34,18 +34,13 @@ window.addEventListener('DOMContentLoaded', function () {
         getTemperature();
     });
 
-    detailsShow.addEventListener('click', () => {
-        showDetails();
-    });
-    detailsHide.addEventListener('click', () => {
-        showDetails();
-    });
+    detailsShow.addEventListener('click', () => showDetails());
+    detailsHide.addEventListener('click', () => showDetails());
 
-
+    
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         let result = await response.json();
-        console.log(result);
         let { temp, humidity, pressure } = result.main;
         let weather = result.weather[0];
         let { description,main } = weather;
@@ -54,13 +49,9 @@ window.addEventListener('DOMContentLoaded', function () {
         temperature.innerHTML = celsius;
         descriptionWeather.innerHTML = description;
         city.innerHTML = result.name;
-
-        console.log(result.coord)
-
-
         skycons(main);
         getDetails(result.name, getDate(), getTime(), `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
-
+        temperature.addEventListener('click', () => changeTempUnit(celsius));
     };
 
     async function getCity() {
@@ -108,19 +99,23 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function getTime(){
         let date = new Date();
-        let hours = date.getHours();
+        let hours = date.getHours() + 1;
         let mins = date.getMinutes();
-
-        if(mins < 10){
-            mins = '0' + date.getMinutes();
-        }
-
         let seconds = date.getSeconds();
 
-        if(seconds < 10) {
-            seconds = '0' + date.getSeconds();
+        if(mins < 10){
+            mins = '0' + mins;
         }
-        let timer =  `${hours +1}:${mins}:${seconds}`;
+
+        if(seconds < 10) {
+            seconds = '0' + seconds;
+        }
+
+        if(hours == 24) {
+            hours = '00';
+        }
+
+        let timer =  `${hours}:${mins}:${seconds}`;
 
         setTimeout(function(){
             detailTime.querySelector('span').innerHTML = timer;
@@ -128,7 +123,18 @@ window.addEventListener('DOMContentLoaded', function () {
         }, 1000);
     };
     
+    function changeTempUnit(cels) {
+        temperature.classList.toggle('t_fahrenheit');
+        temperature.classList.toggle('t_celsius');
+        const fahrenheit = Math.floor((cels * 1.8) + 32);
 
+        if(temperature.classList.contains('t_fahrenheit')){
+            temperature.innerHTML = fahrenheit;
+        }else {
+            temperature.innerHTML = cels;
+        }
+
+    }
 
 
 

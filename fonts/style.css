@@ -136,11 +136,21 @@ body {
 
 .temperature {
   font-size: 70px;
+  cursor: pointer;
+  width: 200px;
+  margin: 0 auto;
 }
 
-.temperature::after {
+
+.t_celsius::after {
   font-family: 'icomoon' !important;
   content: "\e905";
+  font-weight: 400;
+}
+
+.t_fahrenheit::after {
+  font-family: 'icomoon' !important;
+  content: "\e900";
   font-weight: 400;
 }
 
