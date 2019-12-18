@@ -20,26 +20,29 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailCity = document.querySelector('.details_city');
     const detailsShow = document.querySelector('.details_a');
     const detailsHide = document.querySelector('.hide_a');
-    let cityId = 1496153; // Omsk id
+    const modalWindow = document.querySelector('.modal_window');
+    const modalButtonYes = document.querySelector('.modal_button-yes');
+    let cityId = localStorage.getItem('cityId');
 
+
+    getModalWindow();
     getCity();
-    getTemperature();
 
-    chooseCity.addEventListener('click', () => {
-        formCity.classList.toggle('display_none');
-    });
-
-    cities.addEventListener('click', () => {
+    chooseCity.addEventListener('click',  () => formCity.classList.toggle('display_none'));
+    detailsShow.addEventListener('click', () => showDetails());
+    detailsHide.addEventListener('click', () => showDetails());
+    cities.addEventListener('click',      () => {
         cityId = cities.value;
         getTemperature();
     });
 
-    detailsShow.addEventListener('click', () => showDetails());
-    detailsHide.addEventListener('click', () => showDetails());
 
     
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
+        if(!response.ok){
+            alert("Ошибка HTTP: " + response.status);
+        }
         let result = await response.json();
         let { temp, humidity, pressure } = result.main;
         let weather = result.weather[0];
@@ -99,9 +102,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function getTime(){
         let date = new Date();
-        let hours = date.getHours() + 1;
-        let mins = date.getMinutes();
-        let seconds = date.getSeconds();
+        let hours = date.getUTCHours();
+        let mins = date.getUTCMinutes();
+        let seconds = date.getUTCSeconds();
 
         if(mins < 10){
             mins = '0' + mins;
@@ -132,6 +135,22 @@ window.addEventListener('DOMContentLoaded', function () {
             temperature.innerHTML = fahrenheit;
         }else {
             temperature.innerHTML = cels;
+        }
+
+    }
+
+    function getModalWindow() {
+        if(!cityId) {
+            modalWindow.style.display = 'block';
+            localStorage.setItem('cityId', 1496153);
+            cityId = localStorage.getItem('cityId');
+            modalButtonYes.addEventListener('click', function() {
+                getTemperature();
+                modalWindow.style.display = 'none';
+            });
+
+        }else {
+            getTemperature();
         }
 
     }
