@@ -24,15 +24,16 @@ window.addEventListener('DOMContentLoaded', function () {
     const modalButtonYes = document.querySelector('.modal_button-yes');
     let cityId = localStorage.getItem('cityId');
 
-
     getModalWindow();
     getCity();
 
     chooseCity.addEventListener('click',  () => formCity.classList.toggle('display_none'));
     detailsShow.addEventListener('click', () => showDetails());
     detailsHide.addEventListener('click', () => showDetails());
-    cities.addEventListener('click',      () => {
-        cityId = cities.value;
+
+    cities.addEventListener('click', () => {
+        localStorage.setItem('cityId', cities.value);
+        cityId = localStorage.getItem('cityId');
         getTemperature();
     });
 
@@ -154,8 +155,6 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
     }
-
-
 
     function skycons(fallout) {
         var skycons = new Skycons({
