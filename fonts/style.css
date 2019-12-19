@@ -135,7 +135,6 @@ body {
 .city {
   font-size: 85px;
   display: inline-block;
-
 }
 
 .weather {
@@ -236,6 +235,10 @@ span {
   .container {
     width: 100%;
     padding-top: 50px;
+  }
+
+  .city {
+    font-size: 30px;
   }
 
 }
