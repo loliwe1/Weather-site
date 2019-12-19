@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const modalButtonChangeCity = document.querySelector('.modal_button-canhgeCity');
     const cityList = document.querySelector('.city_list');
     const selectCityButton = document.querySelector('.select_city');
-    const canselButton = document.querySelector('.cansel_select');
+    const canselButton = document.querySelector('.cancel_select');
     let cityId = localStorage.getItem('cityId');
 
     getModalWindow();
@@ -185,7 +185,7 @@ window.addEventListener('DOMContentLoaded', function () {
     function showCities() {
         cityList.style.opacity = '1';
         cityList.style.height = '550px';
-        cityList.style.width = '80%';
+        cityList.style.width = '90%';
         cityList.style.left = '50%';
     };
 
