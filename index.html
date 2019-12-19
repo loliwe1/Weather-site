@@ -11,23 +11,14 @@
     <link rel="stylesheet" href="/fonts/style.css">
     <title>Weather.Omsk</title>
 </head>
-
 <body>
     <div class="choose_city">
         <h1 class="cities">Выбрать город</h1>
-        <form class="display_none" action="#">
-            <select name="city" id="cities">
-                <option value="519188">Novinki</option>
-                <option value="473537">Vinogradovo</option>
-            </select>
-        </form>
         <div class="details">
             <a class="details_a" href="#">Подробнее</a>
             <a class="hide_a display_none" href="#">Скрыть</a>
-            
         </div>
     </div>
-
     <div class="container">
         <div class="about">
             <h1 class="city"></h1>
@@ -38,27 +29,37 @@
             <h3 class="wearher_discription"></h3>
         </div>
         <div class="details_items display_none">
-                <h2 class="details_city">Основные данные по городу <span></span></h2>
-                <ul>
-                    <li class="details_item details_date">Дата: <span></span> </li>
-                    <li class="details_item details_time">Время: <span></span> </li>
-                    <li class="details_item details_coords">Координаты: <span></span> </li>
-                    <li class="details_item details_clouds">Облачность: <span></span></li>
-                    <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
-                    <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
-                    <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
-                    <li class="details_item details_main-humidity">Влажность: <span></span></li>
-                </ul>
+            <h2 class="details_city">Основные данные по городу <span></span></h2>
+            <ul>
+                <li class="details_item details_date">Дата: <span></span> </li>
+                <li class="details_item details_time">Время: <span></span> </li>
+                <li class="details_item details_coords">Координаты: <span></span> </li>
+                <li class="details_item details_clouds">Облачность: <span></span></li>
+                <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
+                <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
+                <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
+                <li class="details_item details_main-humidity">Влажность: <span></span></li>
+            </ul>
         </div>
     </div>
 
     <div class="modal_window">
         <div class="modal_window-item">
             <h1 class="modal_head">Ваш город Омск?</h1>
-            <button class="modal_button-yes">Да</button> <button class="modal_button-canhgeCity">Выбрать другой город</button>
+            <button class="modal_button-yes">Да</button> <button class="modal_button-canhgeCity">Выбрать другой
+                город</button>
         </div>
     </div>
-
+    <div class="city_list">
+        <h1>Список городов Российской Федерации</h1>
+        <form action="#">
+            <select name="city" id="cities">
+                <option value="519188">Novinki</option>
+                <option value="473537">Vinogradovo</option>
+            </select>
+        </form>
+            <button class="select_city">Выбрать</button> <button class="cansel_select">Отмена</button>
+    </div>
     <script src="/js/skycons.js"></script>
     <script src="/js/script.js"></script>
 </body>

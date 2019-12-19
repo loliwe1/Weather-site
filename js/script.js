@@ -22,29 +22,41 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailsHide = document.querySelector('.hide_a');
     const modalWindow = document.querySelector('.modal_window');
     const modalButtonYes = document.querySelector('.modal_button-yes');
+    const modalButtonChangeCity = document.querySelector('.modal_button-canhgeCity');
+    const cityList = document.querySelector('.city_list');
+    const selectCityButton = document.querySelector('.select_city');
+    const canselButton = document.querySelector('.cansel_select');
     let cityId = localStorage.getItem('cityId');
 
     getModalWindow();
     getCity();
 
-    chooseCity.addEventListener('click',  () => formCity.classList.toggle('display_none'));
-    detailsShow.addEventListener('click', () => showDetails());
-    detailsHide.addEventListener('click', () => showDetails());
+    chooseCity.addEventListener('click', showCities);
+    modalButtonChangeCity.addEventListener('click', showCities);
+    modalButtonChangeCity.addEventListener('click', showCities);
+    detailsShow.addEventListener('click', showDetails);
+    detailsHide.addEventListener('click', showDetails);
+    selectCityButton.addEventListener('click', selectCity);
+    canselButton.addEventListener('click', canselSelect);
 
-    cities.addEventListener('click', () => {
+    function selectCity(){
         localStorage.setItem('cityId', cities.value);
         cityId = localStorage.getItem('cityId');
         getTemperature();
-    });
+        cityList.style.opacity = '0';
+        cityList.style.height = '0';
+        cityList.style.width = '0';
+        cityList.style.left = '50%';
+        modalWindow.style.display = 'none';
+    };
 
-
-    
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         if(!response.ok){
             alert("Ошибка HTTP: " + response.status);
         }
         let result = await response.json();
+        console.log(result);
         let { temp, humidity, pressure } = result.main;
         let weather = result.weather[0];
         let { description,main } = weather;
@@ -64,11 +76,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
         for (let key in data) {
             if (data[key].country === 'RU') {
+
+                if(data[key].id === 2017370 || data[key].name === '-'){
+                    continue;
+                }
+
                 let option = new Option(data[key].name, data[key].id);
                 cities.append(option);
+
                 if (data[key].id === 1496153) {
                     cities.value = 1496153;
                 }
+
             }
         }
     };
@@ -155,6 +174,20 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
     }
+
+    function canselSelect(){
+        cityList.style.opacity = '0';
+        cityList.style.height = '0';
+        cityList.style.width = '0';
+        cityList.style.left = '50%';
+    };
+
+    function showCities() {
+        cityList.style.opacity = '1';
+        cityList.style.height = '550px';
+        cityList.style.width = '80%';
+        cityList.style.left = '50%';
+    };
 
     function skycons(fallout) {
         var skycons = new Skycons({

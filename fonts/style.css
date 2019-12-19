@@ -73,6 +73,10 @@ body {
   height: 100%;
 }
 
+.display_none {
+  display: none;
+}
+
 .choose_city {
   text-align: right;
   padding-top: 70px;
@@ -80,8 +84,8 @@ body {
   height: 150px;
 }
 
-.display_none {
-  display: none;
+.select_city {
+  margin: 10px;
 }
 
 .details {
@@ -111,7 +115,6 @@ body {
   padding-right: 10px;
   padding-left: 10px;
   position: relative;
-  padding-top: 30px;
   padding-bottom: 50px;
   height: 100%;
 }
@@ -172,7 +175,7 @@ body {
   font-size: 35px;
 }
 
-.details_item span {
+span {
   color: #313133;
 }
 
@@ -198,6 +201,27 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+}
+
+.city_list {
+  background: white;
+  color: rgb(34, 193, 195);
+  text-align: center;
+  position: fixed;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  z-index: 20;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  transform: translate(-50%);
+  opacity: 0;
+}
+
+.city_list h1 {
+  padding-top: 15px;
+  padding-bottom: 30px; 
 }
 
 @media (max-width: 800px) {
