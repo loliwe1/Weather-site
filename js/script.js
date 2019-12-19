@@ -29,8 +29,7 @@ window.addEventListener('DOMContentLoaded', function () {
     let cityId = localStorage.getItem('cityId');
 
     getModalWindow();
-    getCity();
-
+    window.addEventListener('load', getCity());
     chooseCity.addEventListener('click', showCities);
     modalButtonChangeCity.addEventListener('click', showCities);
     modalButtonChangeCity.addEventListener('click', showCities);
@@ -39,24 +38,13 @@ window.addEventListener('DOMContentLoaded', function () {
     selectCityButton.addEventListener('click', selectCity);
     canselButton.addEventListener('click', canselSelect);
 
-    function selectCity(){
-        localStorage.setItem('cityId', cities.value);
-        cityId = localStorage.getItem('cityId');
-        getTemperature();
-        cityList.style.opacity = '0';
-        cityList.style.height = '0';
-        cityList.style.width = '0';
-        cityList.style.left = '50%';
-        modalWindow.style.display = 'none';
-    };
-
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         if(!response.ok){
             alert("Ошибка HTTP: " + response.status);
         }
         let result = await response.json();
-        console.log(result);
+        
         let { temp, humidity, pressure } = result.main;
         let weather = result.weather[0];
         let { description,main } = weather;
@@ -69,6 +57,9 @@ window.addEventListener('DOMContentLoaded', function () {
         getDetails(result.name, getDate(), getTime(), `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
         temperature.addEventListener('click', () => changeTempUnit(celsius));
     };
+
+
+
 
     async function getCity() {
         let response = await fetch('../json/city.list.json');
@@ -175,6 +166,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    function selectCity(){
+        localStorage.setItem('cityId', cities.value);
+        cityId = localStorage.getItem('cityId');
+        getTemperature();
+        cityList.style.opacity = '0';
+        cityList.style.height = '0';
+        cityList.style.width = '0';
+        cityList.style.left = '50%';
+        modalWindow.style.display = 'none';
+    };
+
     function canselSelect(){
         cityList.style.opacity = '0';
         cityList.style.height = '0';
@@ -220,4 +222,101 @@ window.addEventListener('DOMContentLoaded', function () {
 
         skycons.play();
     }
+
+// canvas -----------------------------------------------------------------
+    let canvas = document.querySelector('#canvas');
+    canvas.width = 1200;
+    canvas.height = 800;
+    let ctx = canvas.getContext('2d');
+    let xGrid = 10;
+    let yGrid = 10;
+    let count = 10;
+
+    function drawGrids() {
+        for(let i = 0; i<= canvas.height; i++) {
+            ctx.moveTo(0, yGrid);
+            ctx.lineTo(canvas.width, yGrid);
+            yGrid += count;
+
+        };
+        for(let i = 0; i<= canvas.width; i++) {
+            ctx.moveTo(xGrid, 0);
+            ctx.lineTo(xGrid, canvas.height);
+            xGrid += count;
+        };
+        ctx.strokeStyle = 'grey';
+        ctx.stroke();
+
+    }
+    
+    function blocks(count) {
+        return 10*count;
+    }
+
+    function drawAxis() {
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(blocks(10), blocks(10));
+        ctx.lineTo(blocks(10), canvas.height - blocks(10));
+        ctx.lineTo(canvas.width - blocks(10), canvas.height - blocks(10));
+        ctx.stroke();
+    }
+
+    function markingAxis(entries) {
+        let entriesMark = entries;
+        let countY = 250;
+        let countX = 10;
+        ctx.beginPath();
+        for(let i = 10; i<=80; i+=10){
+            ctx.fillText(`${countY}`,blocks(4), canvas.height - blocks(i));
+            countY+=2;
+        }
+        for(let i = 0; i<=9; i++){
+            ctx.fillText(`${entriesMark[i][0]}`, blocks(countX), canvas.height - blocks(9));
+            countX+=10;
+        }
+        ctx.stroke();
+    }
+
+    function drawChart(entries){
+        let count = 10;
+        let entriesChart = entries;
+        ctx.beginPath();
+        ctx.moveTo(blocks(10), canvas.height - blocks(10));
+
+        for(let i = 0; i<=9; i++) {
+            ctx.lineTo(blocks(count), entriesChart[i][1] + 100);
+            ctx.arc(blocks(count), entriesChart[i][1] + 100,2,0, Math.PI*2,true);
+            count+=10;
+        }
+
+        ctx.stroke();
+
+    }
+
+
+    async function getTemperatureIn24Hours(){
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
+        let result = await response.json();
+        let timeTemp = result.list;
+        let map = new Map();
+
+        for(let temp of timeTemp) {
+            map.set(temp.dt_txt, temp.main.temp)
+        }
+        let obj = Object.fromEntries(map.entries());
+        let entries = Object.entries(obj);
+        console.log(entries);
+
+       drawGrids();
+       drawAxis();
+       markingAxis(entries);
+       drawChart(entries)
+        
+    }
+
+    getTemperatureIn24Hours();
+
+
+
 });

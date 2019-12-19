@@ -267,3 +267,12 @@ span {
     padding-bottom: 10px;
   }
 }
+
+#canvas {
+  text-align: center;
+  margin-top: 50px; 
+  margin-bottom: 500px;
+  border: 1px solid black;
+  background: white;
+  margin-left: 300px;
+}
