@@ -38,6 +38,8 @@ window.addEventListener('DOMContentLoaded', function () {
     selectCityButton.addEventListener('click', selectCity);
     canselButton.addEventListener('click', canselSelect);
 
+    getTemperatureIn24Hours();
+
     async function getTemperature() {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         if(!response.ok){
@@ -57,6 +59,28 @@ window.addEventListener('DOMContentLoaded', function () {
         getDetails(result.name, getDate(), getTime(), `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
         temperature.addEventListener('click', () => changeTempUnit(celsius));
     };
+
+    
+
+    async function getTemperatureIn24Hours(){
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
+        let result = await response.json();
+        let timeTemp = result.list;
+        let map = new Map();
+
+        for(let temp of timeTemp) {
+            map.set(temp.dt_txt, temp.main.temp)
+        }
+        let obj = Object.fromEntries(map.entries());
+        let entries = Object.entries(obj);
+        console.log(entries);
+
+       drawGrids();
+       drawAxis();
+       markingAxis(entries);
+       drawChart(entries)
+        
+    }
 
 
 
@@ -264,59 +288,43 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function markingAxis(entries) {
         let entriesMark = entries;
-        let countY = 250;
+        let countY = 0;
         let countX = 10;
         ctx.beginPath();
         for(let i = 10; i<=80; i+=10){
-            ctx.fillText(`${countY}`,blocks(4), canvas.height - blocks(i));
-            countY+=2;
+            ctx.fillText(`-${countY}`,blocks(4), canvas.height - blocks(i));
+            countY+=5;
         }
         for(let i = 0; i<=9; i++){
-            ctx.fillText(`${entriesMark[i][0]}`, blocks(countX), canvas.height - blocks(9));
+            ctx.fillText(`${entriesMark[i][0].slice(5,10)} - ${entriesMark[i][0].slice(11,16)}`, blocks(countX), canvas.height - blocks(9));
             countX+=10;
         }
         ctx.stroke();
     }
 
     function drawChart(entries){
-        let count = 10;
+        count = 10;
         let entriesChart = entries;
+        let arrTemp = [];
+        arrTemp = entriesChart.map((value) => Math.floor(value[1] - 273.15));
+        console.log(arrTemp)
         ctx.beginPath();
-        ctx.moveTo(blocks(10), canvas.height - blocks(10));
+        ctx.moveTo(blocks(10), blocks(70));
 
         for(let i = 0; i<=9; i++) {
-            ctx.lineTo(blocks(count), entriesChart[i][1] + 100);
-            ctx.arc(blocks(count), entriesChart[i][1] + 100,2,0, Math.PI*2,true);
-            count+=10;
-        }
+            if(arrTemp[i] < 0) arrTemp[i] = arrTemp[i]* -1;
+            ctx.lineTo(blocks(count), blocks(70) - blocks(2.5*arrTemp[i]) );
+            count+=10
+        };
 
         ctx.stroke();
 
     }
 
 
-    async function getTemperatureIn24Hours(){
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
-        let result = await response.json();
-        let timeTemp = result.list;
-        let map = new Map();
 
-        for(let temp of timeTemp) {
-            map.set(temp.dt_txt, temp.main.temp)
-        }
-        let obj = Object.fromEntries(map.entries());
-        let entries = Object.entries(obj);
-        console.log(entries);
-
-       drawGrids();
-       drawAxis();
-       markingAxis(entries);
-       drawChart(entries)
-        
-    }
-
-    getTemperatureIn24Hours();
 
 
 
 });
+
