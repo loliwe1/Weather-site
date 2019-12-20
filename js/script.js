@@ -194,6 +194,7 @@ window.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('cityId', cities.value);
         cityId = localStorage.getItem('cityId');
         getTemperature();
+        getTemperatureIn24Hours();
         cityList.style.opacity = '0';
         cityList.style.height = '0';
         cityList.style.width = '0';
@@ -313,7 +314,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         for(let i = 0; i<=9; i++) {
             if(arrTemp[i] < 0) arrTemp[i] = arrTemp[i]* -1;
-            ctx.lineTo(blocks(count), blocks(70) - blocks(2.5*arrTemp[i]) );
+            ctx.lineTo(blocks(count), blocks(70) - blocks(2*arrTemp[i]) );
             count+=10
         };
 
