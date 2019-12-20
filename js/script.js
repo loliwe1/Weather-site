@@ -26,6 +26,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const cityList = document.querySelector('.city_list');
     const selectCityButton = document.querySelector('.select_city');
     const canselButton = document.querySelector('.cancel_select');
+    const canvasChart = document.querySelector('#canvas');
+
     let cityId = localStorage.getItem('cityId');
 
     getModalWindow();
@@ -73,7 +75,6 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         let obj = Object.fromEntries(map.entries());
         let entries = Object.entries(obj);
-        console.log(entries);
 
        drawGrids();
        drawAxis();
@@ -123,6 +124,7 @@ window.addEventListener('DOMContentLoaded', function () {
         detailsItems.classList.toggle('display_none');
         detailsShow.classList.toggle('display_none');
         detailsHide.classList.toggle('display_none');
+        canvasChart.classList.toggle('display_none');
     };
 
     function getDate() {
@@ -308,7 +310,6 @@ window.addEventListener('DOMContentLoaded', function () {
         let entriesChart = entries;
         let arrTemp = [];
         arrTemp = entriesChart.map((value) => Math.floor(value[1] - 273.15));
-        console.log(arrTemp)
         ctx.beginPath();
         ctx.moveTo(blocks(10), blocks(70));
 
