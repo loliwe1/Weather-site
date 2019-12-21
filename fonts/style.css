@@ -73,6 +73,11 @@ body {
   height: 100%;
 }
 
+.big_container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .display_none {
   display: none;
 }
@@ -80,7 +85,6 @@ body {
 .choose_city {
   text-align: right;
   padding-top: 70px;
-  margin-right: 100px;
   height: 150px;
 }
 
@@ -231,6 +235,31 @@ span {
   padding-bottom: 30px; 
 }
 
+#canvas {
+  text-align: center;
+  margin-top: 50px; 
+  margin-bottom: 500px;
+  border: 1px solid black;
+  background: white;
+  margin-left: 300px;
+}
+
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid black;
+}
+
+
+
 @media (max-width: 800px) {
   .container {
     width: 100%;
@@ -266,13 +295,4 @@ span {
     line-height: 50px;
     padding-bottom: 10px;
   }
-}
-
-#canvas {
-  text-align: center;
-  margin-top: 50px; 
-  margin-bottom: 500px;
-  border: 1px solid black;
-  background: white;
-  margin-left: 300px;
 }

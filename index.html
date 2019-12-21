@@ -11,55 +11,109 @@
     <link rel="stylesheet" href="/fonts/style.css">
     <title>Weather.Omsk</title>
 </head>
+
 <body>
-    <div class="choose_city">
-        <h1 class="cities">Выбрать город</h1>
-        <div class="details">
-            <a class="details_a" href="#">Подробнее</a>
-            <a class="hide_a display_none" href="#">Скрыть</a>
+    <div class="big_container">
+        <div class="choose_city">
+            <h1 class="cities">Выбрать город</h1>
+            <div class="details">
+                <a class="details_a" href="#">Подробнее</a>
+                <a class="hide_a display_none" href="#">Скрыть</a>
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="about">
-            <h1 class="city"></h1>
-            <canvas id="icon1" width="128" height="128"></canvas>
-        </div>
-        <div class="weather">
-            <h2 class="temperature t_celsius"></h2>
-            <h3 class="wearher_discription"></h3>
-        </div>
-        <div class="details_items display_none">
-            <h2 class="details_city">Основные данные по городу <span></span></h2>
-            <ul>
-                <li class="details_item details_date">Дата: <span></span> </li>
-                <li class="details_item details_time">Время: <span></span> </li>
-                <li class="details_item details_coords">Координаты: <span></span> </li>
-                <li class="details_item details_clouds">Облачность: <span></span></li>
-                <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
-                <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
-                <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
-                <li class="details_item details_main-humidity">Влажность: <span></span></li>
-            </ul>
+        <div class="container">
+            <div class="about">
+                <h1 class="city"></h1>
+                <canvas id="icon1" width="128" height="128"></canvas>
+            </div>
+            <div class="weather">
+                <h2 class="temperature t_celsius"></h2>
+                <h3 class="wearher_discription"></h3>
+            </div>
+            <div class="details_items display_none">
+                <h2 class="details_city">Основные данные по городу <span></span></h2>
+                <ul>
+                    <li class="details_item details_date">Дата: <span></span> </li>
+                    <li class="details_item details_time">Время: <span></span> </li>
+                    <li class="details_item details_coords">Координаты: <span></span> </li>
+                    <li class="details_item details_clouds">Облачность: <span></span></li>
+                    <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
+                    <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
+                    <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
+                    <li class="details_item details_main-humidity">Влажность: <span></span></li>
+                </ul>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="modal_window">
-        <div class="modal_window-item">
-            <h1 class="modal_head">Ваш город Омск?</h1>
-            <button class="modal_button-yes">Да</button> <button class="modal_button-canhgeCity">Выбрать другой
-                город</button>
+        <div class="modal_window">
+            <div class="modal_window-item">
+                <h1 class="modal_head">Ваш город Омск?</h1>
+                <button class="modal_button-yes">Да</button> <button class="modal_button-canhgeCity">Выбрать другой
+                    город</button>
+            </div>
         </div>
-    </div>
-    <div class="city_list">
-        <h1>Список городов Российской Федерации</h1>
-        <form action="#">
-            <select name="city" id="cities">
-            </select>
-        </form>
+        <div class="city_list">
+            <h1>Список городов Российской Федерации</h1>
+            <form action="#">
+                <select name="city" id="cities">
+                </select>
+            </form>
             <button class="select_city">Выбрать</button> <button class="cancel_select">Отмена</button>
+        </div>
+        <canvas class="display_none" id="canvas"></canvas>
+
+        <table class="temp_table">
+            <caption> <h2>Погода на 5 дней</h2></caption>
+            <tr>
+                <th>Дата</th>
+                <th>Время</th>
+                <th>Температура</th>
+                <th>Ветер</th>
+                <th>Облачность</th>
+            </tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+            <tr class="temp_tr"></tr>
+        </table>
     </div>
-    <canvas class="display_none" id="canvas"></canvas>
     <script src="/js/skycons.js"></script>
     <script src="/js/script.js"></script>
 </body>

@@ -27,6 +27,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const selectCityButton = document.querySelector('.select_city');
     const canselButton = document.querySelector('.cancel_select');
     const canvasChart = document.querySelector('#canvas');
+    const tempTable = document.querySelector('.temp_table');
+    const tempTr = document.querySelectorAll('.temp_tr');
 
     let cityId = localStorage.getItem('cityId');
 
@@ -67,6 +69,7 @@ window.addEventListener('DOMContentLoaded', function () {
     async function getTemperatureIn24Hours(){
         let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         let result = await response.json();
+        console.log(result);
         let timeTemp = result.list;
         let map = new Map();
 
@@ -79,7 +82,9 @@ window.addEventListener('DOMContentLoaded', function () {
        drawGrids();
        drawAxis();
        markingAxis(entries);
-       drawChart(entries)
+       drawChart(entries);
+
+       createTemperatureTable (result);
         
     }
 
@@ -250,7 +255,7 @@ window.addEventListener('DOMContentLoaded', function () {
         skycons.play();
     }
 
-// canvas -----------------------------------------------------------------
+// canvas chart -----------------------------------------------------------------
     let canvas = document.querySelector('#canvas');
     canvas.width = 1200;
     canvas.height = 800;
@@ -324,9 +329,19 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
 
+// 5 days temperature table-------------------------------------------------
 
+function createTemperatureTable (result) {
+    let list = result.list;
 
-
+    for (let i = 0; i < list.length; i++) {
+        tempTr[i].innerHTML = `<th>${list[i].dt_txt.slice(0,10)}</th>
+        <th>${list[i].dt_txt.slice(11)}</th>
+        <th>${Math.floor(list[i].main.temp - 273.15)}&#176C <img src="https://openweathermap.org/img/wn/${list[i].weather[0].icon}@2x.png" alt="weatherIcon"></th>
+        <th>Скорость: ${list[i].wind.speed} метра/сек<br>Направление: ${list[i].wind.deg} градусов</th>
+        <th>${list[i].clouds.all}%</th>`
+    }
+}
 
 });
 
