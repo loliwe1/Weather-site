@@ -278,9 +278,10 @@ window.addEventListener('DOMContentLoaded', function () {
     canvas.width = 1200;
     canvas.height = 800;
     let ctx = canvas.getContext('2d');
-    let xGrid = 10;
-    let yGrid = 10;
     let count = 10;
+
+    // let xGrid = 10;
+    // let yGrid = 10;
 
     // function clearCanvas() {
     //     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -301,6 +302,11 @@ window.addEventListener('DOMContentLoaded', function () {
     //     ctx.strokeStyle = 'grey';
     //     ctx.stroke();
 
+    // }
+
+    // function clearChart() {
+    //     ctx.clearChart(0,0,canvas.width,canvas.height)
+    //     ctx.stroke();
     // }
     
     function blocks(count) {
