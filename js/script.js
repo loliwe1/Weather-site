@@ -56,7 +56,6 @@ window.addEventListener('DOMContentLoaded', function () {
             alert("Ошибка HTTP: " + response.status);
         }
         let result = await response.json();
-        console.log(result);
         
         let { temp, temp_min, temp_max, humidity, pressure } = result.main;
         let weather = result.weather[0];
@@ -86,8 +85,8 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         let obj = Object.fromEntries(map.entries());
         let entries = Object.entries(obj);
-
-       drawGrids();
+       
+    //    drawGrids();
        drawAxis();
        markingAxis(entries);
        drawChart(entries);
@@ -283,22 +282,26 @@ window.addEventListener('DOMContentLoaded', function () {
     let yGrid = 10;
     let count = 10;
 
-    function drawGrids() {
-        for(let i = 0; i<= canvas.height; i++) {
-            ctx.moveTo(0, yGrid);
-            ctx.lineTo(canvas.width, yGrid);
-            yGrid += count;
+    // function clearCanvas() {
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // }
 
-        };
-        for(let i = 0; i<= canvas.width; i++) {
-            ctx.moveTo(xGrid, 0);
-            ctx.lineTo(xGrid, canvas.height);
-            xGrid += count;
-        };
-        ctx.strokeStyle = 'grey';
-        ctx.stroke();
+    // function drawGrids() {
+    //     for(let i = 0; i<= canvas.height; i++) {
+    //         ctx.moveTo(0, yGrid);
+    //         ctx.lineTo(canvas.width, yGrid);
+    //         yGrid += count;
 
-    }
+    //     };
+    //     for(let i = 0; i<= canvas.width; i++) {
+    //         ctx.moveTo(xGrid, 0);
+    //         ctx.lineTo(xGrid, canvas.height);
+    //         xGrid += count;
+    //     };
+    //     ctx.strokeStyle = 'grey';
+    //     ctx.stroke();
+
+    // }
     
     function blocks(count) {
         return 10*count;
@@ -318,12 +321,13 @@ window.addEventListener('DOMContentLoaded', function () {
         let countY = 0;
         let countX = 10;
         ctx.beginPath();
+        ctx.font = '20px "Oswald", sans-serif'
         for(let i = 10; i<=80; i+=10){
             ctx.fillText(`-${countY}`,blocks(4), canvas.height - blocks(i));
             countY+=5;
         }
         for(let i = 0; i<=9; i++){
-            ctx.fillText(`${entriesMark[i][0].slice(5,10)} - ${entriesMark[i][0].slice(11,16)}`, blocks(countX), canvas.height - blocks(9));
+            ctx.fillText(` ${entriesMark[i][0].slice(11,16)}`, blocks(countX), canvas.height - blocks(7));
             countX+=10;
         }
         ctx.stroke();
@@ -336,15 +340,18 @@ window.addEventListener('DOMContentLoaded', function () {
         arrTemp = entriesChart.map((value) => Math.floor(value[1] - 273.15));
         ctx.beginPath();
         ctx.moveTo(blocks(10), blocks(70));
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = '6';
 
         for(let i = 0; i<=9; i++) {
             if(arrTemp[i] < 0) arrTemp[i] = arrTemp[i]* -1;
+            ctx.fillText(`-${arrTemp[i]}`, blocks(count), blocks(70) - blocks(2*arrTemp[i] + 2) );
             ctx.lineTo(blocks(count), blocks(70) - blocks(2*arrTemp[i]) );
+            ctx.arc(blocks(count), blocks(70) - blocks(2*arrTemp[i]), 5, 0, Math.PI*2, true);
             count+=10
         };
 
         ctx.stroke();
-
     }
 
 
