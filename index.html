@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="big_container">
+    <div class="container">
         <div class="choose_city">
             <h1 class="cities">Выбрать город</h1>
             <div class="details">
@@ -21,31 +21,96 @@
                 <a class="hide_a display_none" href="#">Скрыть</a>
             </div>
         </div>
-        <div class="container">
-            <div class="about">
-                <h1 class="city"></h1>
-                <canvas id="icon1" width="128" height="128"></canvas>
-            </div>
-            <div class="weather">
-                <h2 class="temperature t_celsius"></h2>
-                <h3 class="wearher_discription"></h3>
-            </div>
-            <div class="details_items display_none">
-                <h2 class="details_city">Основные данные по городу <span></span></h2>
-                <ul>
-                    <li class="details_item details_date">Дата: <span></span> </li>
-                    <li class="details_item details_time">Время: <span></span> </li>
-                    <li class="details_item details_coords">Координаты: <span></span> </li>
-                    <li class="details_item details_clouds">Облачность: <span></span></li>
-                    <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
-                    <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
-                    <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
-                    <li class="details_item details_main-humidity">Влажность: <span></span></li>
-                </ul>
-            </div>
-
+        <div class="about">
+            <h1 class="city"></h1>
+            <canvas id="icon1" width="128" height="128"></canvas>
         </div>
-
+        <div class="weather">
+            <h2 class="temperature t_celsius"></h2>
+            <h3 class="wearher_discription"></h3>
+        </div>
+        <div class="details_items display_none">
+            <div class="details_items-inner">
+                <div class="details-nav">
+                    <a href="#" class="details-nav-item">Основные данные</a>
+                    <a href="#" class="details-nav-item">График температуры за сутки</a>
+                    <a href="#" class="details-nav-item">Таблица погоды за 5 дней</a>
+                </div>
+                <div class="details-item">
+                    <h2 class="details_city">Основные данные по городу <span></span></h2>
+                    <ul>
+                        <li class="details_item details_date">Дата: <span></span> </li>
+                        <li class="details_item details_time">Время: <span></span> </li>
+                        <li class="details_item details_temp">Температура: <span></span> </li>
+                        <li class="details_item details_temp-max">Максимальная температура: <span></span> </li>
+                        <li class="details_item details_temp-min">Минимальная температура: <span></span> </li>
+                        <li class="details_item details_coords">Координаты: <span></span> </li>
+                        <li class="details_item details_clouds">Облачность: <span></span></li>
+                        <li class="details_item details_wind-speed">Скорость ветра: <span></span></li>
+                        <li class="details_item details_wind-deg">Направление ветра: <span></span></li>
+                        <li class="details_item details_main-pressure">Атмосферное давление: <span></span></li>
+                        <li class="details_item details_main-humidity">Влажность: <span></span></li>
+                    </ul>
+                </div>
+                <div class="details-item ">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="details-item details-item-table">
+                    <table class="temp_table">
+                        <caption>
+                            <h2>Погода на 5 дней</h2>
+                        </caption>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Время</th>
+                            <th>Температура</th>
+                            <th>Ветер</th>
+                            <th>Облачность</th>
+                        </tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                        <tr class="temp_tr"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="modal_window">
             <div class="modal_window-item">
                 <h1 class="modal_head">Ваш город Омск?</h1>
@@ -61,58 +126,6 @@
             </form>
             <button class="select_city">Выбрать</button> <button class="cancel_select">Отмена</button>
         </div>
-        <canvas class="display_none" id="canvas"></canvas>
-
-        <table class="temp_table">
-            <caption> <h2>Погода на 5 дней</h2></caption>
-            <tr>
-                <th>Дата</th>
-                <th>Время</th>
-                <th>Температура</th>
-                <th>Ветер</th>
-                <th>Облачность</th>
-            </tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-            <tr class="temp_tr"></tr>
-        </table>
     </div>
     <script src="/js/skycons.js"></script>
     <script src="/js/script.js"></script>

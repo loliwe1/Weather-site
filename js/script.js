@@ -11,6 +11,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailsItems = document.querySelector('.details_items')
     const detailDate = document.querySelector('.details_date');
     const detailTime = document.querySelector('.details_time');
+    const detailTemp = document.querySelector('.details_temp');
+    const detailTempMax = document.querySelector('.details_temp-max');
+    const detailTempMin = document.querySelector('.details_temp-min');
     const detailCoords = document.querySelector('.details_coords');
     const detailClouds = document.querySelector('.details_clouds');
     const detailWindSpeed = document.querySelector('.details_wind-speed');
@@ -29,6 +32,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const canvasChart = document.querySelector('#canvas');
     const tempTable = document.querySelector('.temp_table');
     const tempTr = document.querySelectorAll('.temp_tr');
+    const detailsItem = document.querySelectorAll('.details-item');
+    const detailsNavItem = document.querySelectorAll('.details-nav-item');
+    const detailsNav = document.querySelector('.details-nav');
 
     let cityId = localStorage.getItem('cityId');
 
@@ -50,17 +56,20 @@ window.addEventListener('DOMContentLoaded', function () {
             alert("Ошибка HTTP: " + response.status);
         }
         let result = await response.json();
+        console.log(result);
         
-        let { temp, humidity, pressure } = result.main;
+        let { temp, temp_min, temp_max, humidity, pressure } = result.main;
         let weather = result.weather[0];
         let { description,main } = weather;
         const celsius = Math.floor(temp - 273.15);
+        temp_max = Math.floor(temp_max - 273.15);
+        temp_min = Math.floor(temp_min - 273.15);
 
         temperature.innerHTML = celsius;
         descriptionWeather.innerHTML = description;
         city.innerHTML = result.name;
         skycons(main);
-        getDetails(result.name, getDate(), getTime(), `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
+        getDetails(result.name, getDate(), getTime(), celsius, temp_max, temp_min, `${result.coord.lat}, ${result.coord.lon}`, result.clouds.all, result.wind.speed, result.wind.deg, pressure, humidity);
         temperature.addEventListener('click', () => changeTempUnit(celsius));
     };
 
@@ -69,7 +78,6 @@ window.addEventListener('DOMContentLoaded', function () {
     async function getTemperatureIn24Hours(){
         let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=6d69f33007962728c2d73296d6bbdd69`);
         let result = await response.json();
-        console.log(result);
         let timeTemp = result.list;
         let map = new Map();
 
@@ -113,9 +121,12 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    function getDetails(city, date = new Date(), time, coords, clouds, windSpeed, windDeg, pressure, humidity){
+    function getDetails(city, date = new Date(), time, temp, tempMax, tempMin, coords, clouds, windSpeed, windDeg, pressure, humidity){
         detailCity.querySelector('span').innerHTML = city;
         detailDate.querySelector('span').innerHTML = date ;
+        detailTemp.querySelector('span').innerHTML = temp + '&#176C';
+        detailTempMax.querySelector('span').innerHTML = tempMax + '&#176C';
+        detailTempMin.querySelector('span').innerHTML = tempMin + '&#176C';
         detailCoords.querySelector('span').innerHTML = coords + ' (широта, долгота)' ;
         detailClouds.querySelector('span').innerHTML = clouds + ' %';
         detailWindSpeed.querySelector('span').innerHTML = windSpeed + ' метра/сек';
@@ -129,7 +140,15 @@ window.addEventListener('DOMContentLoaded', function () {
         detailsItems.classList.toggle('display_none');
         detailsShow.classList.toggle('display_none');
         detailsHide.classList.toggle('display_none');
-        canvasChart.classList.toggle('display_none');
+
+        if(!detailsItems.classList.contains('display_none')) {
+            setTimeout(function() {
+                window.scrollBy({
+                    top: 300,
+                    behavior: 'smooth'
+                });
+            },0);
+        }
     };
 
     function getDate() {
@@ -343,5 +362,35 @@ function createTemperatureTable (result) {
     }
 }
 
+// details tabs ----------------------------------------
+    let activeTab = 0;
+    function showDetailTabs (activeTab){
+        for(let i = 0; i < detailsItem.length; i++) {
+            detailsItem[i].classList.add('display_none');
+            detailsNavItem[i].classList.remove('details-nav-item-active');
+
+        };
+       
+        detailsItem[activeTab].classList.remove('display_none');
+        detailsNavItem[activeTab].classList.add('details-nav-item-active');
+
+
+    };
+
+    detailsNav.addEventListener('click', event => {
+        let target = event.target;
+        event.preventDefault();
+
+        for(let i = 0; i< detailsNavItem.length; i++) {
+            if(target.classList.contains('details-nav-item') && target === detailsNavItem[i] ) {
+                showDetailTabs(i)
+            }
+        }
+    });
+
+    showDetailTabs(activeTab);
+
 });
+
+
 
