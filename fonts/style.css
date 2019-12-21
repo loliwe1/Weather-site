@@ -286,6 +286,60 @@ td {
   border: 1px solid black;
 }
 
+.scroll_top-button {
+  opacity: 0;
+  position: fixed;
+  z-index: 10;
+  top: 60%;
+  left: 85%;
+  cursor: pointer;
+  transition: 1s opacity;
+  text-decoration: none;
+  outline: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  color: white;
+  border: 1px solid rgba(255,255,255,.4);
+  background: none;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.scroll_top-button:before,
+.scroll_top-button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  box-sizing: border-box;
+}
+.scroll_top-button:before {
+  bottom: 0;
+  left: 0;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+.scroll_top-button:after {
+  top: 0;
+  right: 0;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  transition: 0s ease opacity .4s, .2s ease width , .2s ease height .2s;
+}
+.scroll_top-button:hover:before,
+.scroll_top-button:hover:after{
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+.scroll_top-button:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
+.scroll_top-button:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
+.scroll_top-button:hover {background: rgba(255,255,255,.2);}
+
 
 
 @media (max-width: 800px) {

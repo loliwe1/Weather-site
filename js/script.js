@@ -35,11 +35,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const detailsItem = document.querySelectorAll('.details-item');
     const detailsNavItem = document.querySelectorAll('.details-nav-item');
     const detailsNav = document.querySelector('.details-nav');
+    const buttonScrollTop = document.querySelector('.scroll_top-button');
 
     let cityId = localStorage.getItem('cityId');
 
     getModalWindow();
     window.addEventListener('load', getCity());
+    window.addEventListener('scroll', scrollToTop);
     chooseCity.addEventListener('click', showCities);
     modalButtonChangeCity.addEventListener('click', showCities);
     modalButtonChangeCity.addEventListener('click', showCities);
@@ -47,6 +49,12 @@ window.addEventListener('DOMContentLoaded', function () {
     detailsHide.addEventListener('click', showDetails);
     selectCityButton.addEventListener('click', selectCity);
     canselButton.addEventListener('click', canselSelect);
+    buttonScrollTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 9,
+            behavior: 'smooth'
+        });
+    });
 
     getTemperatureIn24Hours();
 
@@ -95,9 +103,6 @@ window.addEventListener('DOMContentLoaded', function () {
         
     }
 
-
-
-
     async function getCity() {
         let response = await fetch('../json/city.list.json');
         let data = await response.json();
@@ -139,6 +144,7 @@ window.addEventListener('DOMContentLoaded', function () {
         detailsItems.classList.toggle('display_none');
         detailsShow.classList.toggle('display_none');
         detailsHide.classList.toggle('display_none');
+        
 
         if(!detailsItems.classList.contains('display_none')) {
             setTimeout(function() {
@@ -240,6 +246,16 @@ window.addEventListener('DOMContentLoaded', function () {
         cityList.style.width = '90%';
         cityList.style.left = '50%';
     };
+
+
+
+    function scrollToTop() {
+        if(window.pageYOffset >= 250) {
+            buttonScrollTop.style.opacity = 1;
+        }else {
+            buttonScrollTop.style.opacity = 0;
+        }
+    }
 
     function skycons(fallout) {
         var skycons = new Skycons({
