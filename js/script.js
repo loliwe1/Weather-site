@@ -149,7 +149,7 @@ window.addEventListener('DOMContentLoaded', function () {
         if(!detailsItems.classList.contains('display_none')) {
             setTimeout(function() {
                 window.scrollBy({
-                    top: 300,
+                    top: 330,
                     behavior: 'smooth'
                 });
             },0);
