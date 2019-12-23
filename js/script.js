@@ -388,7 +388,13 @@ function createTemperatureTable (result) {
         <th>${Math.floor(list[i].main.temp - 273.15)}&#176C <img src="https://openweathermap.org/img/wn/${list[i].weather[0].icon}@2x.png" alt="weatherIcon"></th>
         <th>Скорость: ${list[i].wind.speed} метра/сек<br>Направление: ${list[i].wind.deg} градусов</th>
         <th>${list[i].clouds.all}%</th>`
+
+        if(i%2 === 0) {
+            tempTr[i].classList.add('tr_even');
+        }
     }
+
+    
 }
 
 // details tabs ----------------------------------------

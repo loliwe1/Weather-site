@@ -280,18 +280,13 @@ span {
 
 table {
   width: 100%;
-  border: 1px solid black;
   border-collapse: collapse;
   font-size: 20px;
 }
-
-th {
-  border: 1px solid black;
+.tr_even {
+  background: rgba(255, 255, 255, .2);
 }
 
-td {
-  border: 1px solid black;
-}
 
 .scroll_top-button {
   opacity: 0;
